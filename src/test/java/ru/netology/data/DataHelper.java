@@ -22,6 +22,10 @@ public class DataHelper {
         return new InfoCard("4444 4444 4444 4442", "DECLINED");
     }
 
+    public static InfoCard getInvalidCard(String number) {
+        return new InfoCard(number, "DECLINED");
+    }
+
 
     @Value
     public static class Month {

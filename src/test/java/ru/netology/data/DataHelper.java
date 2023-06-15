@@ -22,6 +22,7 @@ public class DataHelper {
         return new InfoCard("4444 4444 4444 4442", "DECLINED");
     }
 
+
     @Value
     public static class Month {
 //        private static final List<String> months = List.of(
@@ -33,9 +34,10 @@ public class DataHelper {
         return new Month("12");
     }
 
-    public static Month getInvalidMonth() {
-        return new Month("15");
+    public static Month getInvalidMonth(String month) {
+        return new Month(month);
     }
+
 
     @Value
     public static class Year {
@@ -43,16 +45,14 @@ public class DataHelper {
     }
 
     public static Year getValidYear() {
-        return new Year("2025");
+        return new Year("25");
     }
 
-    public static Year getPastYear() {
-        return new Year("2020");
+    public static Year getInvalidYear(String year) {
+        return new Year(year);
     }
 
-    public static Year getYearAfterTheDeadline() {
-        return  new Year("2030");
-    }
+
 
     @Value
     public static class Owner {
@@ -63,9 +63,10 @@ public class DataHelper {
         return new Owner("Vasya Pupkin");
     }
 
-    public static Owner getCyrillicName() {
-        return new Owner("Вася Пупкин");
+    public static Owner getInvalidName(String name) {
+        return new Owner(name);
     }
+
 
     @Value
     public static class CVCCVV {
@@ -74,6 +75,10 @@ public class DataHelper {
 
     public static CVCCVV getValidCVCCVV() {
         return new CVCCVV("123");
+    }
+
+    public static CVCCVV getInvalidCVCCVV(String cvccvv) {
+        return new CVCCVV(cvccvv);
     }
 
 }

@@ -20,7 +20,7 @@ public class PurchaseTravelTest {
     String expirationError = "Истёк срок действия карты";
     String ownerFieldError = "Поле обязательно для заполнения";
 
-    String validCardNumber = DataHelper.getApprovedCard().getCardNumber();
+    String validCardNumber = DataHelper.getRandomCardNumber().getCardNumber();
     String validMonth = DataHelper.getValidMonth().getMonth();
     String validYear = DataHelper.getValidYear().getYear();
     String validOwner = DataHelper.getValidName().getName();
@@ -45,9 +45,10 @@ public class PurchaseTravelTest {
     @Test
     @DisplayName("Should return the message the operation is approved by the bank")
     void happyPath() {
+        String approvedCardNumber = DataHelper.getApprovedCard().getCardNumber();
 
         var paymentGate = new PaymentGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, validcvccvv);
+        paymentGate.fillingOutTheForm(approvedCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
         paymentGate.successPopUpPaymentGate();
         paymentGate.errorPopUpPaymentGateIsHidden();
@@ -132,10 +133,10 @@ public class PurchaseTravelTest {
         paymentGate.errorPopUpPaymentGate();
     }
 
-    @Test
+    @ParameterizedTest
     @DisplayName("Should return the month input field with an invalid expiration date error")
-    void invalidExpirationDateError() {
-        String month = "13";
+    @CsvSource({"00", "13", "99"})
+    void twoDigitInvalidMonth(String month) {
         String invalidMonth = DataHelper.getInvalidCard(month).getCardNumber();
 
         var paymentGate = new PaymentGate();
@@ -146,7 +147,6 @@ public class PurchaseTravelTest {
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
 
-/*----------------------------------------------------------------------------------------*/
 
     @ParameterizedTest
     @DisplayName("Should return year input field format error. Invalid year")
@@ -165,8 +165,7 @@ public class PurchaseTravelTest {
     @Test
     @DisplayName("Should return the card expired error")
     void yearValueInThePast() {
-        String year = "15";
-        String yearValueInThePast = DataHelper.getInvalidYear(year).getYear();
+        String yearValueInThePast = DataHelper.getPastYear().getYear();
 
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, validMonth, yearValueInThePast, validOwner, validcvccvv);
@@ -179,8 +178,7 @@ public class PurchaseTravelTest {
     @Test
     @DisplayName("Should return the year input field with an invalid expiration date error")
     void yearValueIsMoreThanFiveYearsInTheFuture() {
-        String year = "30";
-        String yearValueInTheFuture = DataHelper.getInvalidYear(year).getYear();
+        String yearValueInTheFuture = DataHelper.getFutureYear().getYear();
 
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, validMonth, yearValueInTheFuture, validOwner, validcvccvv);
@@ -206,7 +204,7 @@ public class PurchaseTravelTest {
 
     @ParameterizedTest
     @DisplayName("Should return owner input field format error. Invalid owner name")
-    @CsvSource({"Вася Пупкин", "19872364 75684", "^%$#@!-+*/", "Вася Вася Вася Вася Вася Вася Вася Вася Вася Вася Вася Вася Вася "})
+    @CsvSource({"Вася Пупкин", "19872364 75684", "^%$#@!-+*/", "Ivan Ivanov Ivanovich", "A very long cardholders name is even longer than sixty four letters"})
     void invalidOwnerName(String name) {
         String invalidOwnerName = DataHelper.getInvalidName(name).getName();
 
@@ -220,7 +218,7 @@ public class PurchaseTravelTest {
 
     @ParameterizedTest
     @DisplayName("Should return cvccvv input field format error. Invalid cvccvv code")
-    @CsvSource({"abc", "абв", "^%$", "12"})
+    @CsvSource({"abc", "код", "^%$", "12"})
     void invalidCvcCvvCode(String code) {
         String invalidCvcCvvCode = DataHelper.getInvalidCVCCVV(code).getCvccvv();
 

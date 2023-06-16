@@ -1,12 +1,20 @@
 package ru.netology.data;
 
+import com.github.javafaker.Faker;
 import lombok.Value;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class DataHelper {
+    private static Faker fakerEn = new Faker(new Locale("en"));
+    private static Faker fakerRu = new Faker(new Locale("ru"));
+
     private DataHelper() {}
+
 
     @Value
     public static class InfoCard {
@@ -26,20 +34,31 @@ public class DataHelper {
         return new InfoCard(number, "");
     }
 
+    public static InfoCard getEmptyCardNumber() {
+        return new InfoCard("", "");
+    }
+
+    public static InfoCard getRandomCardNumber() {
+        return new InfoCard(fakerEn.business().creditCardNumber(), "");
+    }
+
 
     @Value
     public static class Month {
-//        private static final List<String> months = List.of(
-//                "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
-        String month;
+        private String month;
     }
 
     public static Month getValidMonth() {
-        return new Month("12");
+        String validMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
+        return new Month(validMonth);
     }
 
     public static Month getInvalidMonth(String month) {
         return new Month(month);
+    }
+
+    public static Month getEmptyMonth() {
+        return new Month("");
     }
 
 
@@ -49,13 +68,27 @@ public class DataHelper {
     }
 
     public static Year getValidYear() {
-        return new Year("25");
+        String nextYear = LocalDate.now().plusYears(1).format(DateTimeFormatter.ofPattern("yy"));
+        return new Year(nextYear);
     }
 
     public static Year getInvalidYear(String year) {
         return new Year(year);
     }
 
+    public static Year getPastYear() {
+        String pastYear = LocalDate.now().minusYears(10).format(DateTimeFormatter.ofPattern("yy"));
+        return new Year(pastYear);
+    }
+
+    public static Year getFutureYear() {
+        String futureYear = LocalDate.now().plusYears(10).format(DateTimeFormatter.ofPattern("yy"));
+        return new Year(futureYear);
+    }
+
+    public static Year getEmptyYear() {
+        return new Year("");
+    }
 
 
     @Value
@@ -64,11 +97,16 @@ public class DataHelper {
     }
 
     public static Owner getValidName() {
-        return new Owner("Vasya Pupkin");
+        String ownerName = fakerEn.name().firstName() + " " + fakerEn.name().lastName();
+        return new Owner(ownerName);
     }
 
     public static Owner getInvalidName(String name) {
         return new Owner(name);
+    }
+
+    public static Owner getEmptyOwner() {
+        return new Owner("");
     }
 
 
@@ -78,11 +116,16 @@ public class DataHelper {
     }
 
     public static CVCCVV getValidCVCCVV() {
-        return new CVCCVV("123");
+        String code = fakerEn.number().digits(3);
+        return new CVCCVV(code);
     }
 
     public static CVCCVV getInvalidCVCCVV(String cvccvv) {
         return new CVCCVV(cvccvv);
+    }
+
+    public static CVCCVV getEmptyCode() {
+        return new CVCCVV("");
     }
 
 }

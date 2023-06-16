@@ -8,8 +8,7 @@ import ru.netology.data.DataHelper;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 
@@ -50,18 +49,32 @@ public class PaymentGate {
     continueButton.click();
   }
 
-  public void successPaymentGate() {
+  public void successPopUpPaymentGate() {
     successMessage
             .shouldBe(visible, Duration.ofSeconds(15))
             .shouldHave(text("Успешно"))
             .shouldHave(text("Операция одобрена Банком."));
   }
 
-  public void errorPaymentGate() {
+  public void successPopUpPaymentGateIsHidden() {
+    successMessage
+            .shouldNotBe(visible, Duration.ofSeconds(15))
+            .shouldNotHave(text("Успешно"))
+            .shouldNotHave(text("Операция одобрена Банком."));
+  }
+
+  public void errorPopUpPaymentGate() {
     errorMessage
             .shouldBe(visible, Duration.ofSeconds(15))
             .shouldHave(text("Ошибка"))
             .shouldHave(text("Ошибка! Банк отказал в проведении операции."));
+  }
+
+  public void errorPopUpPaymentGateIsHidden() {
+    errorMessage
+            .shouldNotBe(visible, Duration.ofSeconds(15))
+            .shouldNotHave(text("Ошибка"))
+            .shouldNotHave(text("Ошибка! Банк отказал в проведении операции."));
   }
 
 
@@ -71,5 +84,27 @@ public class PaymentGate {
             .shouldHave(text(errorText));
   }
 
+  public void monthFieldError(String errorText) {
+    monthFieldError
+            .shouldBe(visible)
+            .shouldHave(text(errorText));
+  }
 
+  public void yearFieldError(String errorText) {
+    yearFieldError
+            .shouldBe(visible)
+            .shouldHave(text(errorText));
+  }
+
+  public void ownerNameError(String errorText) {
+    ownerNameError
+            .shouldBe(visible)
+            .shouldHave(text(errorText));
+  }
+
+  public void cvccvvFieldError(String errorText) {
+    cvccvvFieldError
+            .shouldBe(visible)
+            .shouldHave(text(errorText));
+  }
 }

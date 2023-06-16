@@ -23,7 +23,7 @@ public class DataHelper {
     }
 
     public static InfoCard getInvalidCard(String number) {
-        return new InfoCard(number, "DECLINED");
+        return new InfoCard(number, "");
     }
 
 

@@ -49,62 +49,92 @@ public class PaymentGate {
     continueButton.click();
   }
 
-  public void successPopUpPaymentGate() {
+  public void successPopUpPaymentGateIsShown() {
     successMessage
-            .shouldBe(visible, Duration.ofSeconds(15))
+            .shouldBe(visible, Duration.ofSeconds(10))
             .shouldHave(text("Успешно"))
             .shouldHave(text("Операция одобрена Банком."));
   }
 
   public void successPopUpPaymentGateIsHidden() {
     successMessage
-            .shouldNotBe(visible, Duration.ofSeconds(15))
+            .shouldNotBe(visible, Duration.ofSeconds(10))
             .shouldNotHave(text("Успешно"))
             .shouldNotHave(text("Операция одобрена Банком."));
   }
 
-  public void errorPopUpPaymentGate() {
+
+  public void errorPopUpPaymentGateIsShown() {
     errorMessage
-            .shouldBe(visible, Duration.ofSeconds(15))
+            .shouldBe(visible, Duration.ofSeconds(10))
             .shouldHave(text("Ошибка"))
             .shouldHave(text("Ошибка! Банк отказал в проведении операции."));
   }
 
   public void errorPopUpPaymentGateIsHidden() {
     errorMessage
-            .shouldNotBe(visible, Duration.ofSeconds(15))
+            .shouldNotBe(visible, Duration.ofSeconds(10))
             .shouldNotHave(text("Ошибка"))
             .shouldNotHave(text("Ошибка! Банк отказал в проведении операции."));
   }
 
 
-  public void cardNumberFieldError(String errorText) {
+  public void cardNumberFieldErrorIsShown(String errorText) {
     cardNumberFieldError
             .shouldBe(visible)
             .shouldHave(text(errorText));
   }
 
-  public void monthFieldError(String errorText) {
+  public void cardNumberFieldErrorIsHidden() {
+    cardNumberFieldError
+            .shouldNotBe(visible);
+  }
+
+
+  public void monthFieldErrorIsShown(String errorText) {
     monthFieldError
             .shouldBe(visible)
             .shouldHave(text(errorText));
   }
 
-  public void yearFieldError(String errorText) {
+  public void monthFieldErrorIsHidden() {
+    monthFieldError
+            .shouldNotBe(visible);
+  }
+
+
+  public void yearFieldErrorIsShown(String errorText) {
     yearFieldError
             .shouldBe(visible)
             .shouldHave(text(errorText));
   }
 
-  public void ownerNameError(String errorText) {
+  public void yearFieldErrorIsHidden() {
+    yearFieldError
+            .shouldNotBe(visible);
+  }
+
+
+  public void ownerNameFieldErrorIsShown(String errorText) {
     ownerNameError
             .shouldBe(visible)
             .shouldHave(text(errorText));
   }
 
-  public void cvccvvFieldError(String errorText) {
+  public void ownerNameFieldErrorIsHidden() {
+    ownerNameError
+            .shouldNotBe(visible);
+  }
+
+
+  public void cvccvvFieldErrorIsShown(String errorText) {
     cvccvvFieldError
             .shouldBe(visible)
             .shouldHave(text(errorText));
+  }
+
+  public void cvccvvFieldErrorIsHidden() {
+    cvccvvFieldError
+            .shouldNotBe(visible);
   }
 }

@@ -18,7 +18,7 @@ public class PurchaseTravelTest {
     String formatError = "Неверный формат";
     String invalidExpirationDateError = "Неверно указан срок действия карты";
     String expirationError = "Истёк срок действия карты";
-    String ownerFieldError = "Поле обязательно для заполнения";
+    String emptyFieldError = "Поле обязательно для заполнения";
 
     String validCardNumber = DataHelper.getRandomCardNumber().getCardNumber();
     String validMonth = DataHelper.getValidMonth().getMonth();
@@ -50,7 +50,13 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(approvedCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.successPopUpPaymentGate();
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
+        paymentGate.successPopUpPaymentGateIsShown();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
 
@@ -62,8 +68,14 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(declinedCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGate();
+        paymentGate.errorPopUpPaymentGateIsShown();
     }
 
     @Test
@@ -75,8 +87,14 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(rejectedCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGate();
+        paymentGate.errorPopUpPaymentGateIsShown();
     }
 
     @ParameterizedTest
@@ -88,7 +106,12 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(invalidCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldError(formatError);
+        paymentGate.cardNumberFieldErrorIsShown(formatError);
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
@@ -102,9 +125,34 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(tooLongCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGate();
+        paymentGate.errorPopUpPaymentGateIsShown();
     }
+
+    @Test
+    @DisplayName("Should return an error of an empty card number field")
+    void emptyCardNumberField() {
+        String emptyCardNumber = DataHelper.getEmptyCardNumber().getCardNumber();
+
+        var paymentGate = new PaymentGate();
+        paymentGate.fillingOutTheForm(emptyCardNumber, validMonth, validYear, validOwner, validcvccvv);
+
+        paymentGate.cardNumberFieldErrorIsShown(emptyFieldError);
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
+        paymentGate.successPopUpPaymentGateIsHidden();
+        paymentGate.errorPopUpPaymentGateIsHidden();
+    }
+
 
     @ParameterizedTest
     @DisplayName("Should return month input field format error. Invalid month")
@@ -115,7 +163,12 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, invalidMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.monthFieldError(formatError);
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsShown(formatError);
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
@@ -129,8 +182,14 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, tooLongMonth, validYear, validOwner, validcvccvv);
 
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGate();
+        paymentGate.errorPopUpPaymentGateIsShown();
     }
 
     @ParameterizedTest
@@ -142,7 +201,30 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, invalidMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.monthFieldError(invalidExpirationDateError);
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsShown(invalidExpirationDateError);
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
+        paymentGate.successPopUpPaymentGateIsHidden();
+        paymentGate.errorPopUpPaymentGateIsHidden();
+    }
+
+    @Test
+    @DisplayName("Should return an error of an empty month field")
+    void emptyMonthField() {
+        String emptyMonth = DataHelper.getEmptyMonth().getMonth();
+
+        var paymentGate = new PaymentGate();
+        paymentGate.fillingOutTheForm(validCardNumber, emptyMonth, validYear, validOwner, validcvccvv);
+
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsShown(emptyFieldError);
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
@@ -157,7 +239,12 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, validMonth, invalidYear, validOwner, validcvccvv);
 
-        paymentGate.yearFieldError(formatError);
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsShown(formatError);
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
@@ -170,7 +257,12 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, validMonth, yearValueInThePast, validOwner, validcvccvv);
 
-        paymentGate.yearFieldError(expirationError);
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsShown(expirationError);
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
@@ -183,7 +275,12 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, validMonth, yearValueInTheFuture, validOwner, validcvccvv);
 
-        paymentGate.yearFieldError(invalidExpirationDateError);
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsShown(invalidExpirationDateError);
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
@@ -197,10 +294,34 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, validMonth, yearFullValue, validOwner, validcvccvv);
 
-        paymentGate.yearFieldError(expirationError);
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsShown(expirationError);
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
+
+    @Test
+    @DisplayName("Should return an error of an empty year field")
+    void emptyYearField() {
+        String emptyYear = DataHelper.getEmptyYear().getYear();
+
+        var paymentGate = new PaymentGate();
+        paymentGate.fillingOutTheForm(validCardNumber, validMonth, emptyYear, validOwner, validcvccvv);
+
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsShown(emptyFieldError);
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
+        paymentGate.successPopUpPaymentGateIsHidden();
+        paymentGate.errorPopUpPaymentGateIsHidden();
+    }
+
 
     @ParameterizedTest
     @DisplayName("Should return owner input field format error. Invalid owner name")
@@ -211,13 +332,37 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, invalidOwnerName, validcvccvv);
 
-        paymentGate.ownerNameError(formatError);
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsShown(formatError);
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
 
+    @Test
+    @DisplayName("Should return an error of an empty owner field")
+    void emptyOwnerField() {
+        String emptyOwner = DataHelper.getEmptyOwner().getName();
+
+        var paymentGate = new PaymentGate();
+        paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, emptyOwner, validcvccvv);
+
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsShown(emptyFieldError);
+        paymentGate.cvccvvFieldErrorIsHidden();
+
+        paymentGate.successPopUpPaymentGateIsHidden();
+        paymentGate.errorPopUpPaymentGateIsHidden();
+    }
+
+
     @ParameterizedTest
-    @DisplayName("Should return cvccvv input field format error. Invalid cvccvv code")
+    @DisplayName("Should return cvc/cvv input field format error. Invalid cvc/cvv code")
     @CsvSource({"abc", "код", "^%$", "12"})
     void invalidCvcCvvCode(String code) {
         String invalidCvcCvvCode = DataHelper.getInvalidCVCCVV(code).getCvccvv();
@@ -225,13 +370,19 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, invalidCvcCvvCode);
 
-        paymentGate.cvccvvFieldError(formatError);
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsShown(formatError);
+
+
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
 
     @Test
-    @DisplayName("Should return an error popup. The cvccvv is too long")
+    @DisplayName("Should return an error popup. The cvc/cvv is too long")
     void cvccvvIsTooLong() {
         String code = "1234567890";
         String tooLongCvcCvv = DataHelper.getInvalidCVCCVV(code).getCvccvv();
@@ -239,7 +390,31 @@ public class PurchaseTravelTest {
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, tooLongCvcCvv);
 
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
         paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGate();
+        paymentGate.errorPopUpPaymentGateIsShown();
+    }
+
+    @Test
+    @DisplayName("Should return an error of an empty cvc/cvv field")
+    void emptyCvcCvvField() {
+        String emptyCvcCvv = DataHelper.getEmptyCode().getCvccvv();
+
+        var paymentGate = new PaymentGate();
+        paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, emptyCvcCvv);
+
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsShown(emptyFieldError);
+
+        paymentGate.successPopUpPaymentGateIsHidden();
+        paymentGate.errorPopUpPaymentGateIsHidden();
     }
 }

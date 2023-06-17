@@ -1,10 +1,6 @@
 package ru.netology.page;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import lombok.Value;
-import org.openqa.selenium.WebElement;
-import ru.netology.data.DataHelper;
 
 import java.time.Duration;
 

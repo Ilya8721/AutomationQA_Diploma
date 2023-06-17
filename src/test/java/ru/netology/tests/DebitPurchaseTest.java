@@ -1,8 +1,6 @@
 package ru.netology.tests;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import com.github.javafaker.Faker;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,11 +8,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 import ru.netology.data.DataHelper;
 import ru.netology.page.PaymentGate;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.open;
 
-public class PurchaseTravelTest {
+public class DebitPurchaseTest {
     String formatError = "Неверный формат";
     String invalidExpirationDateError = "Неверно указан срок действия карты";
     String expirationError = "Истёк срок действия карты";

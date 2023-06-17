@@ -7,7 +7,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import ru.netology.data.DataHelper;
 import ru.netology.page.CreditGate;
-import ru.netology.page.PaymentGate;
 
 import static com.codeborne.selenide.Selenide.open;
 

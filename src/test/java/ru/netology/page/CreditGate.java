@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class CreditGate {
   private SelenideElement heading = $("button.button_hovered~h3");
-  private SelenideElement buyOnCreditButton = $x("//button//span[text()= 'Кредит по данным карты']//ancestor-or-self::button");
+  private SelenideElement buyOnCreditButton = $x("//button//span[text()= 'Купить в кредит']//ancestor-or-self::button");
   private SelenideElement cardNumberField = $x("//form//span[contains(text(), 'Номер карты')]/following::span[1]/input");
   private SelenideElement monthField = $x("//form//span[contains(text(), 'Месяц')]/following::span[1]/input");
   private SelenideElement yearField = $x("//form//span[contains(text(), 'Год')]/following::span[1]/input");

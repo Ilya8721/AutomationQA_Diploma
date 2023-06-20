@@ -65,6 +65,14 @@ java "-Dspring.datasource.url=jdbc:mysql://localhost:3306/app" -jar artifacts/aq
 java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar
 ```
 
+Дождаться сообщения в терминале, которое будет означать, что приложение успешно запущено:
+
+```
+INFO 11420 --- [           main] ru.netology.shop.ShopApplication         : Started ShopApplication in 15.818 seconds (JVM running for 17.243)
+```
+
+Сервис будет доступен в браузере по адресу: _http://localhost:8080/_
+
 3) Запускаем авто-тесты командой в терминале:
 
 - для MySQL:
@@ -78,14 +86,6 @@ java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifac
 ```
 ./gradlew clean test "-Ddatasource.url=jdbc:postgresql://localhost:5432/app"
 ```
-
-Дождаться сообщения в терминале, которое будет означать, что приложение успешно запущено:
-
-```
-date time INFO 20036 --- [           main] ru.netology.shop.ShopApplication         : Started ShopApplication in 6.475 seconds (JVM running for 7.201)
-```
-
-Сервис будет доступен в браузере по адресу: _http://localhost:8080/_
 
 4) Генерируем отчёт по итогам тестирования с помощью **Allure**. Отчёт автоматически откроется в браузере с помощью команды в терминале:
 

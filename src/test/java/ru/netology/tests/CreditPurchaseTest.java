@@ -50,17 +50,17 @@ public class CreditPurchaseTest {
     void happyPath() {
         String approvedCardNumber = DataHelper.getApprovedCard().getCardNumber();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(approvedCardNumber, validMonth, validYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(approvedCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsShown();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsShown();
+        creditgate.errorPopUpPaymentGateIsHidden();
 
         assertEquals(DataHelper.getApprovedCard().getCardStatus(), SQLHelper.getCreditPaymentStatus());
     }
@@ -91,17 +91,17 @@ public class CreditPurchaseTest {
         String cardNumber = "4444 4444 4444 4440";
         String rejectedCardNumber = DataHelper.getInvalidCard(cardNumber).getCardNumber();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(rejectedCardNumber, validMonth, validYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(rejectedCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsShown();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsShown();
     }
 
     @ParameterizedTest
@@ -110,17 +110,17 @@ public class CreditPurchaseTest {
     void invalidCardNumber(String cardNumber) {
         String invalidCardNumber = DataHelper.getInvalidCard(cardNumber).getCardNumber();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(invalidCardNumber, validMonth, validYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(invalidCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsShown(formatError);
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsShown(formatError);
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
     @ParameterizedTest
@@ -129,17 +129,17 @@ public class CreditPurchaseTest {
     void cardNumberIsTooLong(String cardNumber) {
         String tooLongCardNumber = DataHelper.getInvalidCard(cardNumber).getCardNumber();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(tooLongCardNumber, validMonth, validYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(tooLongCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsShown();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsShown();
     }
 
     @Test
@@ -147,17 +147,17 @@ public class CreditPurchaseTest {
     void emptyCardNumberField() {
         String emptyCardNumber = DataHelper.getEmptyCardNumber().getCardNumber();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(emptyCardNumber, validMonth, validYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(emptyCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsShown(emptyFieldError);
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsShown(emptyFieldError);
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
 
@@ -167,17 +167,17 @@ public class CreditPurchaseTest {
     void invalidMonth(String month) {
         String invalidMonth = DataHelper.getInvalidMonth(month).getMonth();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, invalidMonth, validYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, invalidMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsShown(formatError);
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsShown(formatError);
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
     @ParameterizedTest
@@ -186,17 +186,17 @@ public class CreditPurchaseTest {
     void monthIsTooLong(String month) {
         String tooLongMonth = DataHelper.getInvalidCard(month).getCardNumber();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, tooLongMonth, validYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, tooLongMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsShown();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsShown();
     }
 
     @ParameterizedTest
@@ -205,17 +205,17 @@ public class CreditPurchaseTest {
     void twoDigitInvalidMonth(String month) {
         String invalidMonth = DataHelper.getInvalidCard(month).getCardNumber();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, invalidMonth, validYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, invalidMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsShown(invalidExpirationDateError);
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsShown(invalidExpirationDateError);
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
     @Test
@@ -223,17 +223,17 @@ public class CreditPurchaseTest {
     void emptyMonthField() {
         String emptyMonth = DataHelper.getEmptyMonth().getMonth();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, emptyMonth, validYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, emptyMonth, validYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsShown(emptyFieldError);
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsShown(emptyFieldError);
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
 
@@ -243,17 +243,17 @@ public class CreditPurchaseTest {
     void invalidYear(String year) {
         String invalidYear = DataHelper.getInvalidYear(year).getYear();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, invalidYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, invalidYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsShown(formatError);
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsShown(formatError);
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
     @Test
@@ -261,17 +261,17 @@ public class CreditPurchaseTest {
     void yearValueInThePast() {
         String yearValueInThePast = DataHelper.getPastYear().getYear();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, yearValueInThePast, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, yearValueInThePast, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsShown(expirationError);
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsShown(expirationError);
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
     @Test
@@ -279,17 +279,17 @@ public class CreditPurchaseTest {
     void yearValueIsMoreThanFiveYearsInTheFuture() {
         String yearValueInTheFuture = DataHelper.getFutureYear().getYear();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, yearValueInTheFuture, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, yearValueInTheFuture, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsShown(invalidExpirationDateError);
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsShown(invalidExpirationDateError);
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
     @Test
@@ -298,17 +298,17 @@ public class CreditPurchaseTest {
         String year = "2025";
         String yearFullValue = DataHelper.getInvalidYear(year).getYear();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, yearFullValue, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, yearFullValue, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsShown(expirationError);
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsShown(expirationError);
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
     @Test
@@ -316,17 +316,17 @@ public class CreditPurchaseTest {
     void emptyYearField() {
         String emptyYear = DataHelper.getEmptyYear().getYear();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, emptyYear, validOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, emptyYear, validOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsShown(emptyFieldError);
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsShown(emptyFieldError);
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
 
@@ -336,17 +336,17 @@ public class CreditPurchaseTest {
     void invalidOwnerName(String name) {
         String invalidOwnerName = DataHelper.getInvalidName(name).getName();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, invalidOwnerName, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, invalidOwnerName, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsShown(formatError);
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsShown(formatError);
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
     @Test
@@ -354,17 +354,17 @@ public class CreditPurchaseTest {
     void emptyOwnerField() {
         String emptyOwner = DataHelper.getEmptyOwner().getName();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, emptyOwner, validcvccvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, emptyOwner, validcvccvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsShown(emptyFieldError);
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsShown(emptyFieldError);
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
 
@@ -374,18 +374,18 @@ public class CreditPurchaseTest {
     void invalidCvcCvvCode(String code) {
         String invalidCvcCvvCode = DataHelper.getInvalidCVCCVV(code).getCvccvv();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, invalidCvcCvvCode);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, invalidCvcCvvCode);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsShown(formatError);
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsShown(formatError);
 
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 
     @Test
@@ -394,17 +394,17 @@ public class CreditPurchaseTest {
         String code = "1234567890";
         String tooLongCvcCvv = DataHelper.getInvalidCVCCVV(code).getCvccvv();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, tooLongCvcCvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, tooLongCvcCvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsHidden();
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsShown();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsShown();
     }
 
     @Test
@@ -412,16 +412,16 @@ public class CreditPurchaseTest {
     void emptyCvcCvvField() {
         String emptyCvcCvv = DataHelper.getEmptyCode().getCvccvv();
 
-        var paymentGate = new CreditGate();
-        paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, emptyCvcCvv);
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, emptyCvcCvv);
 
-        paymentGate.cardNumberFieldErrorIsHidden();
-        paymentGate.monthFieldErrorIsHidden();
-        paymentGate.yearFieldErrorIsHidden();
-        paymentGate.ownerNameFieldErrorIsHidden();
-        paymentGate.cvccvvFieldErrorIsShown(emptyFieldError);
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsShown(emptyFieldError);
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
     }
 }

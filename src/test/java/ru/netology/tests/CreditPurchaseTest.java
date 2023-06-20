@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import ru.netology.data.DataHelper;
 import ru.netology.data.SQLHelper;
 import ru.netology.page.CreditGate;
+import ru.netology.page.PaymentGate;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -422,6 +423,29 @@ public class CreditPurchaseTest {
         creditgate.cvccvvFieldErrorIsShown(emptyFieldError);
 
         creditgate.successPopUpPaymentGateIsHidden();
+        creditgate.errorPopUpPaymentGateIsHidden();
+    }
+
+    @Test
+    @DisplayName("Should hide errors in fields when they are re-filled with valid values")
+    void refillingInEmptyFields() {
+        String emptyCardNumber = DataHelper.getEmptyCardNumber().getCardNumber();
+        String emptyMonth = DataHelper.getEmptyMonth().getMonth();
+        String emptyYear = DataHelper.getEmptyYear().getYear();
+        String emptyOwner = DataHelper.getEmptyOwner().getName();
+        String emptyCvcCvv = DataHelper.getEmptyCode().getCvccvv();
+
+        var creditgate = new CreditGate();
+        creditgate.fillingOutTheForm(emptyCardNumber, emptyMonth, emptyYear, emptyOwner, emptyCvcCvv);
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, validcvccvv);
+
+        creditgate.cardNumberFieldErrorIsHidden();
+        creditgate.monthFieldErrorIsHidden();
+        creditgate.yearFieldErrorIsHidden();
+        creditgate.ownerNameFieldErrorIsHidden();
+        creditgate.cvccvvFieldErrorIsHidden();
+
+        creditgate.successPopUpPaymentGateIsShown();
         creditgate.errorPopUpPaymentGateIsHidden();
     }
 }

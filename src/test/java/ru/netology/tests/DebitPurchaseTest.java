@@ -424,4 +424,27 @@ public class DebitPurchaseTest {
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
+
+    @Test
+    @DisplayName("Should hide errors in fields when they are re-filled with valid values")
+    void refillingInEmptyFields() {
+        String emptyCardNumber = DataHelper.getEmptyCardNumber().getCardNumber();
+        String emptyMonth = DataHelper.getEmptyMonth().getMonth();
+        String emptyYear = DataHelper.getEmptyYear().getYear();
+        String emptyOwner = DataHelper.getEmptyOwner().getName();
+        String emptyCvcCvv = DataHelper.getEmptyCode().getCvccvv();
+
+        var paymentGate = new PaymentGate();
+        paymentGate.fillingOutTheForm(emptyCardNumber, emptyMonth, emptyYear, emptyOwner, emptyCvcCvv);
+        paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, validcvccvv);
+
+        paymentGate.cardNumberFieldErrorIsHidden();
+        paymentGate.monthFieldErrorIsHidden();
+        paymentGate.yearFieldErrorIsHidden();
+        paymentGate.ownerNameFieldErrorIsHidden();
+        paymentGate.cvccvvFieldErrorIsHidden();
+
+        paymentGate.successPopUpPaymentGateIsShown();
+        paymentGate.errorPopUpPaymentGateIsHidden();
+    }
 }

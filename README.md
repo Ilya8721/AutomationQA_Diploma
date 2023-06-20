@@ -49,7 +49,7 @@ docker-compose ps
 
 Ожидаемый статус контейнеров - **UP**
 
-![](pictures/Containers.png)
+![Containers](https://github.com/Ilya8721/AutomationQA_Diploma/assets/122430861/a93496a6-30b2-41a0-be88-274baa1c457b)
 
 2) Запускаем SUT командой в терминале:
 

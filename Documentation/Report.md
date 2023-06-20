@@ -19,14 +19,14 @@
 
 #### При подключении к СУБД MySQL
 
-![](pictures/Allure Report MySQL.png)
+![](pictures/AllureReportMySQL.png)
 
 * 26 - успешных, что составляет 63.41%
 * 15 - не прошло, что составляет 36.59%
 
 #### При подключении к СУБД PostgreSQL
 
-![](pictures/Allure Report PostgreSQL.png)
+![](pictures/AllureReportPostgreSQL.png)
 
 * 26 - успешных, что составляет 63.41%
 * 15 - не прошло, что составляет 36.59%

@@ -6,9 +6,11 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import ru.netology.data.DataHelper;
+import ru.netology.data.SQLHelper;
 import ru.netology.page.PaymentGate;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DebitPurchaseTest {
     String formatError = "Неверный формат";
@@ -52,6 +54,8 @@ public class DebitPurchaseTest {
         paymentGate.ownerNameFieldErrorIsHidden();
         paymentGate.cvccvvFieldErrorIsHidden();
 
+        assertEquals(DataHelper.getApprovedCard().getCardStatus(), SQLHelper.getDebitPaymentStatus());
+
         paymentGate.successPopUpPaymentGateIsShown();
         paymentGate.errorPopUpPaymentGateIsHidden();
     }
@@ -69,6 +73,8 @@ public class DebitPurchaseTest {
         paymentGate.yearFieldErrorIsHidden();
         paymentGate.ownerNameFieldErrorIsHidden();
         paymentGate.cvccvvFieldErrorIsHidden();
+
+        assertEquals(DataHelper.getDeclinedCard().getCardStatus(), SQLHelper.getDebitPaymentStatus());
 
         paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsShown();

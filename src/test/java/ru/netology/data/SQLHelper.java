@@ -10,8 +10,6 @@ import java.sql.DriverManager;
 public class SQLHelper {
     private static final String dbUrl = "jdbc:mysql://localhost:3306/app";
 
-    private static QueryRunner runner = new QueryRunner();
-
     private SQLHelper() {
     }
 
@@ -22,6 +20,7 @@ public class SQLHelper {
 
     @SneakyThrows
     public static String getDebitPaymentStatus() {
+        QueryRunner runner = new QueryRunner();
         String SqlStatus = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
         try (var connection = getConnection()) {
             return runner.query(connection, SqlStatus, new ScalarHandler<>());
@@ -39,6 +38,7 @@ public class SQLHelper {
 
     @SneakyThrows
     public static void cleanBase() {
+        QueryRunner runner = new QueryRunner();
         var connection = getConnection();
         runner.execute(connection, "TRUNCATE credit_request_entity");
         runner.execute(connection, "TRUNCATE order_entity");

@@ -59,10 +59,10 @@ public class CreditPurchaseTest {
         paymentGate.ownerNameFieldErrorIsHidden();
         paymentGate.cvccvvFieldErrorIsHidden();
 
-        assertEquals(DataHelper.getApprovedCard().getCardStatus(), SQLHelper.getCreditPaymentStatus());
-
         paymentGate.successPopUpPaymentGateIsShown();
         paymentGate.errorPopUpPaymentGateIsHidden();
+
+        assertEquals(DataHelper.getApprovedCard().getCardStatus(), SQLHelper.getCreditPaymentStatus());
     }
 
     @Test
@@ -79,10 +79,10 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        assertEquals(DataHelper.getDeclinedCard().getCardStatus(), SQLHelper.getCreditPaymentStatus());
-
         creditgate.successPopUpPaymentGateIsHidden();
         creditgate.errorPopUpPaymentGateIsShown();
+
+        assertEquals(DataHelper.getDeclinedCard().getCardStatus(), SQLHelper.getCreditPaymentStatus());
     }
 
     @Test

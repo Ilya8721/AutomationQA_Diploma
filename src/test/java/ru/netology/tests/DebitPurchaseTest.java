@@ -39,6 +39,11 @@ public class DebitPurchaseTest {
         open("http://localhost:8080");
     }
 
+    @AfterEach
+    void cleanBase() {
+        SQLHelper.cleanBase();
+    }
+
 
     @Test
     @DisplayName("Should return the message the operation is approved by the bank")

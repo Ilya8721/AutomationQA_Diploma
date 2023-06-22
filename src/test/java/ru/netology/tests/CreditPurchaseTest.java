@@ -18,7 +18,7 @@ public class CreditPurchaseTest {
     String expirationError = "Истёк срок действия карты";
     String emptyFieldError = "Поле обязательно для заполнения";
 
-    String validCardNumber = DataHelper.getRandomCardNumber().getCardNumber();
+    String validCardNumber = DataHelper.getApprovedCard().getCardNumber();
     String validMonth = DataHelper.getValidMonth().getMonth();
     String validYear = DataHelper.getValidYear().getYear();
     String validOwner = DataHelper.getValidName().getName();
@@ -48,10 +48,9 @@ public class CreditPurchaseTest {
     @Test
     @DisplayName("Should return the message the operation is approved by the bank")
     void happyPath() {
-        String approvedCardNumber = DataHelper.getApprovedCard().getCardNumber();
 
         var creditgate = new CreditGate();
-        creditgate.fillingOutTheForm(approvedCardNumber, validMonth, validYear, validOwner, validcvccvv);
+        creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
         creditgate.cardNumberFieldErrorIsHidden();
         creditgate.monthFieldErrorIsHidden();
@@ -59,8 +58,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsShown();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsShown();
+        creditgate.errorPopUpCreditGateIsHidden();
 
         assertEquals(DataHelper.getApprovedCard().getCardStatus(), SQLHelper.getCreditPaymentStatus());
     }
@@ -79,8 +78,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsShown();
+        creditgate.errorPopUpCreditGateIsShown();
+        creditgate.successPopUpCreditGateIsHidden();
 
         assertEquals(DataHelper.getDeclinedCard().getCardStatus(), SQLHelper.getCreditPaymentStatus());
     }
@@ -88,8 +87,7 @@ public class CreditPurchaseTest {
     @Test
     @DisplayName("Should return an error due to a rejected card number")
     void rejectedCardNumber() {
-        String cardNumber = "4444 4444 4444 4440";
-        String rejectedCardNumber = DataHelper.getInvalidCard(cardNumber).getCardNumber();
+        String rejectedCardNumber = DataHelper.getRandomCardNumber().getCardNumber();
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(rejectedCardNumber, validMonth, validYear, validOwner, validcvccvv);
@@ -100,8 +98,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsShown();
+        creditgate.errorPopUpCreditGateIsShown();
+        creditgate.successPopUpCreditGateIsHidden();
     }
 
     @ParameterizedTest
@@ -119,12 +117,12 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @ParameterizedTest
-    @DisplayName("Should return an error popup. The card number is too long")
+    @DisplayName("Should return an success popup. The card number is too long")
     @CsvSource({"4444 4444 4444 4444 4", "1234 5678 9012 3456 7890 1234 5678 9012 3456 7890"})
     void cardNumberIsTooLong(String cardNumber) {
         String tooLongCardNumber = DataHelper.getInvalidCard(cardNumber).getCardNumber();
@@ -138,8 +136,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsShown();
+        creditgate.errorPopUpCreditGateIsShown();
+        creditgate.successPopUpCreditGateIsHidden();
     }
 
     @Test
@@ -156,8 +154,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
 
@@ -176,12 +174,12 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @ParameterizedTest
-    @DisplayName("Should return an error popup. The month is too long")
+    @DisplayName("Should return an success popup. The month is too long")
     @CsvSource({"123", "111111111111111"})
     void monthIsTooLong(String month) {
         String tooLongMonth = DataHelper.getInvalidCard(month).getCardNumber();
@@ -195,8 +193,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsShown();
+        creditgate.successPopUpCreditGateIsShown();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @ParameterizedTest
@@ -214,8 +212,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @Test
@@ -232,8 +230,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
 
@@ -252,8 +250,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @Test
@@ -270,8 +268,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @Test
@@ -288,8 +286,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @Test
@@ -307,8 +305,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @Test
@@ -325,8 +323,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
 
@@ -345,8 +343,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsShown(formatError);
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @Test
@@ -363,8 +361,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsShown(emptyFieldError);
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
 
@@ -384,12 +382,12 @@ public class CreditPurchaseTest {
         creditgate.cvccvvFieldErrorIsShown(formatError);
 
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @Test
-    @DisplayName("Should return an error popup. The cvc/cvv is too long")
+    @DisplayName("Should return an success popup. The cvc/cvv is too long")
     void cvccvvIsTooLong() {
         String code = "1234567890";
         String tooLongCvcCvv = DataHelper.getInvalidCVCCVV(code).getCvccvv();
@@ -403,8 +401,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsShown();
+        creditgate.successPopUpCreditGateIsShown();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @Test
@@ -421,8 +419,8 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsShown(emptyFieldError);
 
-        creditgate.successPopUpPaymentGateIsHidden();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsHidden();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 
     @Test
@@ -444,7 +442,7 @@ public class CreditPurchaseTest {
         creditgate.ownerNameFieldErrorIsHidden();
         creditgate.cvccvvFieldErrorIsHidden();
 
-        creditgate.successPopUpPaymentGateIsShown();
-        creditgate.errorPopUpPaymentGateIsHidden();
+        creditgate.successPopUpCreditGateIsShown();
+        creditgate.errorPopUpCreditGateIsHidden();
     }
 }

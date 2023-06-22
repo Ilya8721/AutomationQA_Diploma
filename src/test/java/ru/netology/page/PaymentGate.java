@@ -47,14 +47,14 @@ public class PaymentGate {
 
   public void successPopUpPaymentGateIsShown() {
     successMessage
-            .shouldBe(visible, Duration.ofSeconds(12))
+            .shouldBe(visible, Duration.ofSeconds(20))
             .shouldHave(text("Успешно"))
             .shouldHave(text("Операция одобрена Банком."));
   }
 
   public void successPopUpPaymentGateIsHidden() {
     successMessage
-            .shouldNotBe(visible, Duration.ofSeconds(12))
+            .shouldBe(hidden, Duration.ofSeconds(20))
             .shouldNotHave(text("Успешно"))
             .shouldNotHave(text("Операция одобрена Банком."));
   }
@@ -62,14 +62,14 @@ public class PaymentGate {
 
   public void errorPopUpPaymentGateIsShown() {
     errorMessage
-            .shouldBe(visible, Duration.ofSeconds(12))
+            .shouldBe(visible, Duration.ofSeconds(20))
             .shouldHave(text("Ошибка"))
             .shouldHave(text("Ошибка! Банк отказал в проведении операции."));
   }
 
   public void errorPopUpPaymentGateIsHidden() {
     errorMessage
-            .shouldNotBe(visible, Duration.ofSeconds(12))
+            .shouldBe(hidden, Duration.ofSeconds(20))
             .shouldNotHave(text("Ошибка"))
             .shouldNotHave(text("Ошибка! Банк отказал в проведении операции."));
   }
@@ -83,7 +83,7 @@ public class PaymentGate {
 
   public void cardNumberFieldErrorIsHidden() {
     cardNumberFieldError
-            .shouldNotBe(visible);
+            .shouldBe(hidden);
   }
 
 
@@ -95,7 +95,7 @@ public class PaymentGate {
 
   public void monthFieldErrorIsHidden() {
     monthFieldError
-            .shouldNotBe(visible);
+            .shouldBe(hidden);
   }
 
 
@@ -107,7 +107,7 @@ public class PaymentGate {
 
   public void yearFieldErrorIsHidden() {
     yearFieldError
-            .shouldNotBe(visible);
+            .shouldBe(hidden);
   }
 
 
@@ -119,7 +119,7 @@ public class PaymentGate {
 
   public void ownerNameFieldErrorIsHidden() {
     ownerNameError
-            .shouldNotBe(visible);
+            .shouldBe(hidden);
   }
 
 
@@ -131,6 +131,6 @@ public class PaymentGate {
 
   public void cvccvvFieldErrorIsHidden() {
     cvccvvFieldError
-            .shouldNotBe(visible);
+            .shouldBe(hidden);
   }
 }

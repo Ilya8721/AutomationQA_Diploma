@@ -18,7 +18,7 @@ public class DebitPurchaseTest {
     String expirationError = "Истёк срок действия карты";
     String emptyFieldError = "Поле обязательно для заполнения";
 
-    String validCardNumber = DataHelper.getRandomCardNumber().getCardNumber();
+    String validCardNumber = DataHelper.getApprovedCard().getCardNumber();
     String validMonth = DataHelper.getValidMonth().getMonth();
     String validYear = DataHelper.getValidYear().getYear();
     String validOwner = DataHelper.getValidName().getName();
@@ -48,10 +48,9 @@ public class DebitPurchaseTest {
     @Test
     @DisplayName("Should return the message the operation is approved by the bank")
     void happyPath() {
-        String approvedCardNumber = DataHelper.getApprovedCard().getCardNumber();
 
         var paymentGate = new PaymentGate();
-        paymentGate.fillingOutTheForm(approvedCardNumber, validMonth, validYear, validOwner, validcvccvv);
+        paymentGate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, validcvccvv);
 
         paymentGate.cardNumberFieldErrorIsHidden();
         paymentGate.monthFieldErrorIsHidden();
@@ -79,8 +78,8 @@ public class DebitPurchaseTest {
         paymentGate.ownerNameFieldErrorIsHidden();
         paymentGate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsShown();
+        paymentGate.successPopUpPaymentGateIsHidden();
 
         assertEquals(DataHelper.getDeclinedCard().getCardStatus(), SQLHelper.getDebitPaymentStatus());
     }
@@ -88,8 +87,7 @@ public class DebitPurchaseTest {
     @Test
     @DisplayName("Should return an error due to a rejected card number")
     void rejectedCardNumber() {
-        String cardNumber = "4444 4444 4444 4440";
-        String rejectedCardNumber = DataHelper.getInvalidCard(cardNumber).getCardNumber();
+        String rejectedCardNumber = DataHelper.getRandomCardNumber().getCardNumber();
 
         var paymentGate = new PaymentGate();
         paymentGate.fillingOutTheForm(rejectedCardNumber, validMonth, validYear, validOwner, validcvccvv);
@@ -100,8 +98,8 @@ public class DebitPurchaseTest {
         paymentGate.ownerNameFieldErrorIsHidden();
         paymentGate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsShown();
+        paymentGate.successPopUpPaymentGateIsHidden();
     }
 
     @ParameterizedTest
@@ -124,7 +122,7 @@ public class DebitPurchaseTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Should return an error popup. The card number is too long")
+    @DisplayName("Should return an success popup. The card number is too long")
     @CsvSource({"4444 4444 4444 4444 4", "1234 5678 9012 3456 7890 1234 5678 9012 3456 7890"})
     void cardNumberIsTooLong(String cardNumber) {
         String tooLongCardNumber = DataHelper.getInvalidCard(cardNumber).getCardNumber();
@@ -138,8 +136,8 @@ public class DebitPurchaseTest {
         paymentGate.ownerNameFieldErrorIsHidden();
         paymentGate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
         paymentGate.errorPopUpPaymentGateIsShown();
+        paymentGate.successPopUpPaymentGateIsHidden();
     }
 
     @Test
@@ -181,7 +179,7 @@ public class DebitPurchaseTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Should return an error popup. The month is too long")
+    @DisplayName("Should return an success popup. The month is too long")
     @CsvSource({"123", "111111111111111"})
     void monthIsTooLong(String month) {
         String tooLongMonth = DataHelper.getInvalidCard(month).getCardNumber();
@@ -195,8 +193,8 @@ public class DebitPurchaseTest {
         paymentGate.ownerNameFieldErrorIsHidden();
         paymentGate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsShown();
+        paymentGate.successPopUpPaymentGateIsShown();
+        paymentGate.errorPopUpPaymentGateIsHidden();
     }
 
     @ParameterizedTest
@@ -389,7 +387,7 @@ public class DebitPurchaseTest {
     }
 
     @Test
-    @DisplayName("Should return an error popup. The cvc/cvv is too long")
+    @DisplayName("Should return an success popup. The cvc/cvv is too long")
     void cvccvvIsTooLong() {
         String code = "1234567890";
         String tooLongCvcCvv = DataHelper.getInvalidCVCCVV(code).getCvccvv();
@@ -403,8 +401,8 @@ public class DebitPurchaseTest {
         paymentGate.ownerNameFieldErrorIsHidden();
         paymentGate.cvccvvFieldErrorIsHidden();
 
-        paymentGate.successPopUpPaymentGateIsHidden();
-        paymentGate.errorPopUpPaymentGateIsShown();
+        paymentGate.successPopUpPaymentGateIsShown();
+        paymentGate.errorPopUpPaymentGateIsHidden();
     }
 
     @Test

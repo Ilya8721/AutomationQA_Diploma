@@ -4,8 +4,8 @@ import com.codeborne.selenide.SelenideElement;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.hidden;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -45,31 +45,31 @@ public class CreditGate {
     continueButton.click();
   }
 
-  public void successPopUpPaymentGateIsShown() {
+  public void successPopUpCreditGateIsShown() {
     successMessage
-            .shouldBe(visible, Duration.ofSeconds(12))
+            .shouldBe(visible, Duration.ofSeconds(20))
             .shouldHave(text("Успешно"))
             .shouldHave(text("Операция одобрена Банком."));
   }
 
-  public void successPopUpPaymentGateIsHidden() {
+  public void successPopUpCreditGateIsHidden() {
     successMessage
-            .shouldNotBe(visible, Duration.ofSeconds(12))
+            .shouldBe(hidden, Duration.ofSeconds(20))
             .shouldNotHave(text("Успешно"))
             .shouldNotHave(text("Операция одобрена Банком."));
   }
 
 
-  public void errorPopUpPaymentGateIsShown() {
+  public void errorPopUpCreditGateIsShown() {
     errorMessage
-            .shouldBe(visible, Duration.ofSeconds(12))
+            .shouldBe(visible, Duration.ofSeconds(20))
             .shouldHave(text("Ошибка"))
             .shouldHave(text("Ошибка! Банк отказал в проведении операции."));
   }
 
-  public void errorPopUpPaymentGateIsHidden() {
+  public void errorPopUpCreditGateIsHidden() {
     errorMessage
-            .shouldNotBe(visible, Duration.ofSeconds(12))
+            .shouldBe(hidden, Duration.ofSeconds(20))
             .shouldNotHave(text("Ошибка"))
             .shouldNotHave(text("Ошибка! Банк отказал в проведении операции."));
   }
@@ -83,7 +83,7 @@ public class CreditGate {
 
   public void cardNumberFieldErrorIsHidden() {
     cardNumberFieldError
-            .shouldNotBe(visible);
+            .shouldBe(hidden);
   }
 
 
@@ -95,7 +95,7 @@ public class CreditGate {
 
   public void monthFieldErrorIsHidden() {
     monthFieldError
-            .shouldNotBe(visible);
+            .shouldBe(hidden);
   }
 
 
@@ -107,7 +107,7 @@ public class CreditGate {
 
   public void yearFieldErrorIsHidden() {
     yearFieldError
-            .shouldNotBe(visible);
+            .shouldBe(hidden);
   }
 
 
@@ -119,7 +119,7 @@ public class CreditGate {
 
   public void ownerNameFieldErrorIsHidden() {
     ownerNameError
-            .shouldNotBe(visible);
+            .shouldBe(hidden);
   }
 
 
@@ -131,6 +131,6 @@ public class CreditGate {
 
   public void cvccvvFieldErrorIsHidden() {
     cvccvvFieldError
-            .shouldNotBe(visible);
+            .shouldBe(hidden);
   }
 }

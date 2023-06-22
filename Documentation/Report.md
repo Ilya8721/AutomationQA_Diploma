@@ -47,3 +47,4 @@
 7) [Сообщение при отправке формы с пустым полем "Год" содержит неверный текст](https://github.com/Ilya8721/AutomationQA_Diploma/issues/7)
 8) [Сообщение при отправке формы с пустым полем "CVC/CVV" содержит неверный текст](https://github.com/Ilya8721/AutomationQA_Diploma/issues/8)
 9) [Сообщения об ошибке полей ввода не исчезают после введения корректных данных](https://github.com/Ilya8721/AutomationQA_Diploma/issues/9)
+10) [Противоречащие друг другу сообщения появляются при оплате картой без статуса](https://github.com/Ilya8721/AutomationQA_Diploma/issues/10)

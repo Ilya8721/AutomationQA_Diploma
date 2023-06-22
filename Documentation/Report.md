@@ -19,14 +19,14 @@
 
 #### При подключении к СУБД MySQL
 
-![AllureReportMySQL](https://github.com/Ilya8721/AutomationQA_Diploma/assets/122430861/e6ad6124-8ed3-4fc8-8ac2-268524818db6)
+![AllureReportMySQL](https://github.com/Ilya8721/AutomationQA_Diploma/assets/122430861/33693e67-3ff2-4655-9b9b-0ed46ebcb007)
 
 * 26 - успешных, что составляет 60.97%
 * 15 - не прошло, что составляет 39.03%
 
 #### При подключении к СУБД PostgreSQL
 
-![AllureReportPostgreSQL](https://github.com/Ilya8721/AutomationQA_Diploma/assets/122430861/9b581e7c-f763-4f2b-b6a8-8db14c05c077)
+![AllureReportPostgreSQL](https://github.com/Ilya8721/AutomationQA_Diploma/assets/122430861/4e302a84-21da-40c7-a35a-2399b5b8072f)
 
 * 26 - успешных, что составляет 60.97%
 * 15 - не прошло, что составляет 60.97%

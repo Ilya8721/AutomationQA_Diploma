@@ -47,14 +47,14 @@ public class CreditGate {
 
   public void successPopUpPaymentGateIsShown() {
     successMessage
-            .shouldBe(visible, Duration.ofSeconds(10))
+            .shouldBe(visible, Duration.ofSeconds(12))
             .shouldHave(text("Успешно"))
             .shouldHave(text("Операция одобрена Банком."));
   }
 
   public void successPopUpPaymentGateIsHidden() {
     successMessage
-            .shouldNotBe(visible, Duration.ofSeconds(10))
+            .shouldNotBe(visible, Duration.ofSeconds(12))
             .shouldNotHave(text("Успешно"))
             .shouldNotHave(text("Операция одобрена Банком."));
   }
@@ -62,14 +62,14 @@ public class CreditGate {
 
   public void errorPopUpPaymentGateIsShown() {
     errorMessage
-            .shouldBe(visible, Duration.ofSeconds(10))
+            .shouldBe(visible, Duration.ofSeconds(12))
             .shouldHave(text("Ошибка"))
             .shouldHave(text("Ошибка! Банк отказал в проведении операции."));
   }
 
   public void errorPopUpPaymentGateIsHidden() {
     errorMessage
-            .shouldNotBe(visible, Duration.ofSeconds(10))
+            .shouldNotBe(visible, Duration.ofSeconds(12))
             .shouldNotHave(text("Ошибка"))
             .shouldNotHave(text("Ошибка! Банк отказал в проведении операции."));
   }

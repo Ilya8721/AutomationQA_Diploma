@@ -19,10 +19,10 @@ public class CreditPurchaseTest {
     String emptyFieldError = "Поле обязательно для заполнения";
 
     String validCardNumber = DataHelper.getApprovedCard().getCardNumber();
-    String validMonth = DataHelper.getValidMonth().getMonth();
-    String validYear = DataHelper.getValidYear().getYear();
-    String validOwner = DataHelper.getValidName().getName();
-    String validcvccvv = DataHelper.getValidCVCCVV().getCvccvv();
+    String validMonth = DataHelper.getValidMonth();
+    String validYear = DataHelper.getYear(1);
+    String validOwner = DataHelper.getValidName();
+    String validcvccvv = DataHelper.getValidCVCCVV();
 
     @BeforeAll
     static void setUpAll() {
@@ -163,7 +163,7 @@ public class CreditPurchaseTest {
     @DisplayName("Should return month input field format error. Invalid month")
     @CsvSource({"September", "Июнь", "^%$#@!-+*/", "8"})
     void invalidMonth(String month) {
-        String invalidMonth = DataHelper.getInvalidMonth(month).getMonth();
+        String invalidMonth = DataHelper.getInvalidMonth(month);
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, invalidMonth, validYear, validOwner, validcvccvv);
@@ -219,7 +219,7 @@ public class CreditPurchaseTest {
     @Test
     @DisplayName("Should return an error of an empty month field")
     void emptyMonthField() {
-        String emptyMonth = DataHelper.getEmptyMonth().getMonth();
+        String emptyMonth = DataHelper.getEmptyFieldValue();
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, emptyMonth, validYear, validOwner, validcvccvv);
@@ -239,7 +239,7 @@ public class CreditPurchaseTest {
     @DisplayName("Should return year input field format error. Invalid year")
     @CsvSource({"twentieth", "двадцатый", "^%$#@!-+*/", "8"})
     void invalidYear(String year) {
-        String invalidYear = DataHelper.getInvalidYear(year).getYear();
+        String invalidYear = DataHelper.getInvalidYear(year);
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, validMonth, invalidYear, validOwner, validcvccvv);
@@ -257,7 +257,7 @@ public class CreditPurchaseTest {
     @Test
     @DisplayName("Should return the card expired error")
     void yearValueInThePast() {
-        String yearValueInThePast = DataHelper.getPastYear().getYear();
+        String yearValueInThePast = DataHelper.getYear(-10);
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, validMonth, yearValueInThePast, validOwner, validcvccvv);
@@ -275,7 +275,7 @@ public class CreditPurchaseTest {
     @Test
     @DisplayName("Should return the year input field with an invalid expiration date error")
     void yearValueIsMoreThanFiveYearsInTheFuture() {
-        String yearValueInTheFuture = DataHelper.getFutureYear().getYear();
+        String yearValueInTheFuture = DataHelper.getYear(10);
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, validMonth, yearValueInTheFuture, validOwner, validcvccvv);
@@ -294,7 +294,7 @@ public class CreditPurchaseTest {
     @DisplayName("Should return the card expired error. Filled with the full value")
     void yearFullValue() {
         String year = "2025";
-        String yearFullValue = DataHelper.getInvalidYear(year).getYear();
+        String yearFullValue = DataHelper.getInvalidYear(year);
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, validMonth, yearFullValue, validOwner, validcvccvv);
@@ -312,7 +312,7 @@ public class CreditPurchaseTest {
     @Test
     @DisplayName("Should return an error of an empty year field")
     void emptyYearField() {
-        String emptyYear = DataHelper.getEmptyYear().getYear();
+        String emptyYear = DataHelper.getEmptyFieldValue();
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, validMonth, emptyYear, validOwner, validcvccvv);
@@ -332,7 +332,7 @@ public class CreditPurchaseTest {
     @DisplayName("Should return owner input field format error. Invalid owner name")
     @CsvSource({"Вася Пупкин", "19872364 75684", "^%$#@!-+*/", "Ivan Ivanov Ivanovich", "A very long cardholders name is even longer than sixty four letters"})
     void invalidOwnerName(String name) {
-        String invalidOwnerName = DataHelper.getInvalidName(name).getName();
+        String invalidOwnerName = DataHelper.getInvalidName(name);
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, invalidOwnerName, validcvccvv);
@@ -350,7 +350,7 @@ public class CreditPurchaseTest {
     @Test
     @DisplayName("Should return an error of an empty owner field")
     void emptyOwnerField() {
-        String emptyOwner = DataHelper.getEmptyOwner().getName();
+        String emptyOwner = DataHelper.getEmptyFieldValue();
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, emptyOwner, validcvccvv);
@@ -370,7 +370,7 @@ public class CreditPurchaseTest {
     @DisplayName("Should return cvc/cvv input field format error. Invalid cvc/cvv code")
     @CsvSource({"abc", "код", "^%$", "12"})
     void invalidCvcCvvCode(String code) {
-        String invalidCvcCvvCode = DataHelper.getInvalidCVCCVV(code).getCvccvv();
+        String invalidCvcCvvCode = DataHelper.getInvalidCVCCVV(code);
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, invalidCvcCvvCode);
@@ -390,7 +390,7 @@ public class CreditPurchaseTest {
     @DisplayName("Should return an success popup. The cvc/cvv is too long")
     void cvccvvIsTooLong() {
         String code = "1234567890";
-        String tooLongCvcCvv = DataHelper.getInvalidCVCCVV(code).getCvccvv();
+        String tooLongCvcCvv = DataHelper.getInvalidCVCCVV(code);
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, tooLongCvcCvv);
@@ -408,7 +408,7 @@ public class CreditPurchaseTest {
     @Test
     @DisplayName("Should return an error of an empty cvc/cvv field")
     void emptyCvcCvvField() {
-        String emptyCvcCvv = DataHelper.getEmptyCode().getCvccvv();
+        String emptyCvcCvv = DataHelper.getEmptyFieldValue();
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(validCardNumber, validMonth, validYear, validOwner, emptyCvcCvv);
@@ -427,10 +427,10 @@ public class CreditPurchaseTest {
     @DisplayName("Should hide errors in fields when they are re-filled with valid values")
     void refillingInEmptyFields() {
         String emptyCardNumber = DataHelper.getEmptyCardNumber().getCardNumber();
-        String emptyMonth = DataHelper.getEmptyMonth().getMonth();
-        String emptyYear = DataHelper.getEmptyYear().getYear();
-        String emptyOwner = DataHelper.getEmptyOwner().getName();
-        String emptyCvcCvv = DataHelper.getEmptyCode().getCvccvv();
+        String emptyMonth = DataHelper.getEmptyFieldValue();
+        String emptyYear = DataHelper.getEmptyFieldValue();
+        String emptyOwner = DataHelper.getEmptyFieldValue();
+        String emptyCvcCvv = DataHelper.getEmptyFieldValue();
 
         var creditgate = new CreditGate();
         creditgate.fillingOutTheForm(emptyCardNumber, emptyMonth, emptyYear, emptyOwner, emptyCvcCvv);
